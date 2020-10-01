@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 import numpy as np
 import itertools
 from memoization import cached
+import matplotlib.pyplot as plt 
+
 
 #define fields
 F=[0, 1, 2, 3]
@@ -147,10 +146,35 @@ def value_function(s, t):
         
         return max([reward(s, u)+value_function(transition(s, u), t+1) for u in u_set])
 
+#Gantt chart
+def gantt_chart(policy):
+    #figure "gnt" 
+    fig, gnt = plt.subplots()
+
+    #setting axis limits 
+    gnt.set_ylim(0, len(F)) 
+    gnt.set_xlim(0, 60)
+
+    #setting labels for x-axis and y-axis 
+    gnt.set_xlabel('Days') 
+    gnt.set_ylabel('Fields')
+
+    #ticks and labels on y-axis 
+    gnt.set_yticks(F)
+    gnt.set_yticklabels(['1', '2', '3', '4'])
+
+    #setting graph attribute 
+    gnt.grid(True)
+
+    return None
+
+
+
+
 #############################################################################
 #main recursion
 
-#define state variable
+#define state variable=
 GDU=[0,0,0,0]
 P=[0,0,0,0]
 D=[0,0,0,0]
@@ -183,5 +207,5 @@ for t in range(0, 61):
     s=new_s[np.argmax(new_value)]
     state_progression.append(s)
 policy.reverse()
-policy
-state_progression
+#policy
+#state_progression
