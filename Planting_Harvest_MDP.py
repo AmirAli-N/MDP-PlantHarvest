@@ -153,7 +153,7 @@ def gantt_chart(policy):
 
     #setting axis limits 
     gnt.set_ylim(0, len(F)) 
-    gnt.set_xlim(0, 60)
+    gnt.set_xlim(0, 61)
 
     #setting labels for x-axis and y-axis 
     gnt.set_xlabel('Days') 
@@ -166,10 +166,23 @@ def gantt_chart(policy):
     #setting graph attribute 
     gnt.grid(True)
 
-    return None
-
-
-
+    for i in range(0, len(policy)):
+        u_p=policy[i][0]
+        u_d=policy[i][1]
+        u_h=policy[i][2]
+        if (np.any(np.array(u_p)!=0)):
+            for j in range(0, len(F)):
+                if (u_p[j]==1):
+                    gnt.broken_barh([(i, 1)], (j, 1), facecolors=('tab:green'))
+        if (np.any(np.array(u_d)!=0)):
+            for j in range(0, len(F)):
+                if (u_d[j]==1):
+                    gnt.broken_barh([(i, 1)], (j, 1), facecolors=('tab:orange'))
+        if (np.any(np.array(u_h)!=0)):
+            for j in range(0, len(F)):
+                if (u_h[j]==1):
+                    gnt.broken_barh([(i, 1)], (j, 1), facecolors=('tab:blue'))
+    return fig, gnt
 
 #############################################################################
 #main recursion
@@ -206,6 +219,9 @@ for t in range(0, 61):
     policy.append(u_set[np.argmax(new_value)])
     s=new_s[np.argmax(new_value)]
     state_progression.append(s)
-policy.reverse()
-#policy
-#state_progression
+#policy.reverse()
+policy
+state_progression
+
+gantt_chart(policy)
+plt.show()
